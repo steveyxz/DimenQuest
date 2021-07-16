@@ -88,7 +88,7 @@ public class Renderer {
     private void prepareInstance(Entity entity, MasterRenderer renderer) {
         Vector2f pos;
         if (entity instanceof Tile) {
-            pos = GlobalMethods.getXYFromGridXY(((Tile) entity).getGridX(), -((Tile) entity).getGridY());
+            pos = GlobalMethods.getXYFromGridXY(((Tile) entity).getGridX(), ((Tile) entity).getGridY());
         } else {
             pos = GlobalMethods.getXYFromGridXY(entity.getGridPos().x, entity.getGridPos().y);
         }

@@ -29,7 +29,7 @@ public class GlobalMethods {
     }
 
     public static Vector2f getXYFromGridXY(float x, float y) {
-        return new Vector2f(x * tileWidth, (y * tileWidth));
+        return new Vector2f(x * tileWidth, (-y * tileWidth));
     }
 
     public static GuiTexture generateGuiTexture(String path, Loader loader, Vector2f pos, Vector2f scale) {
@@ -259,28 +259,42 @@ public class GlobalMethods {
         //Random and returned
         Random r = new Random();
         HashMap<Long, TileType> returned = new HashMap<>();
-        ArrayList<Long> ignore = new ArrayList<>();
+        ArrayList<Long> topIgnore = new ArrayList<>();
+        ArrayList<Long> leftIgnore = new ArrayList<>();
+        ArrayList<Long> rightIgnore = new ArrayList<>();
+        ArrayList<Long> bottomIgnore = new ArrayList<>();
 
         TileChunk right = dimension.getChunkAt(gridPos.x + 8, gridPos.y);
         TileChunk left = dimension.getChunkAt(gridPos.x - 8, gridPos.y);
-        TileChunk up = dimension.getChunkAt(gridPos.x, gridPos.y + 8);
-        TileChunk down = dimension.getChunkAt(gridPos.x, gridPos.y - 8);
+        TileChunk up = dimension.getChunkAt(gridPos.x, gridPos.y - 8);
+        TileChunk down = dimension.getChunkAt(gridPos.x, gridPos.y + 8);
 
         //loop through all the chunk tiles
         for (int i = 0; i < chunkHeight; i++) {
             for (int j = 0; j < chunkWidth; j++) {
-                if (ignore.contains(encode(j, i))) {
-                    continue;
-                }
                 //Distance will be 0 if the tile is on the chunk border.
                 int distance;
                 if (j > (chunkWidth / 2f) - 0.5) {
                     //The tile that the loop is on is on the right of the chunk
                     //The chunk that is on the right of the chunk
                     //Check that the chunk exists
+                    if (rightIgnore.contains(encode(j, i))) {
+                        continue;
+                    }
+
+                    Biome biomeThere = null;
                     if (right != null) {
                         //The biome of the chunk next to this chunk
-                        Biome biomeThere = right.getType();
+                        biomeThere = right.getType();
+                    } else if (specifiedChunkTypes.containsKey(dimension.correspondingType)) {
+                        long key = encode((int) gridPos.x + 8, (int) gridPos.y);
+                        HashMap<Long, Biome> thing = specifiedChunkTypes.get(dimension.correspondingType);
+                        if (thing.containsKey(key)) {
+                            biomeThere = thing.get(key);
+                        }
+                    }
+
+                    if (biomeThere != null) {
                         //Check if the chunk next to this chunk is of a different biome differ type, meaning that the regular spread is not used.
                         if (biomeThere.getDifferType() != type.getDifferType()) {
                             //Check that the biome of the chunk next to this chunk has a higher chunk differ type bias, meaning that the biome
@@ -293,6 +307,9 @@ public class GlobalMethods {
                                     if (!returned.containsKey(key)) {
                                         returned.put(key, biomeThere.getRandomTileTypeFromBiome());
                                     }
+                                }
+                                for (int k = 0; k < chunkWidth / 2; k++) {
+                                    rightIgnore.add(encode(chunkWidth - 1 - k, i));
                                 }
                             }
                         } else {
@@ -310,8 +327,21 @@ public class GlobalMethods {
                 }
                 if (j < (chunkWidth / 2f) - 0.5) {
                     //The tile that the loop is on is on the left of the chunk
+                    if (leftIgnore.contains(encode(j, i))) {
+                        continue;
+                    }
+                    Biome biomeThere = null;
                     if (left != null) {
-                        Biome biomeThere = left.getType();
+                        //The biome of the chunk next to this chunk
+                        biomeThere = left.getType();
+                    } else if (specifiedChunkTypes.containsKey(dimension.correspondingType)) {
+                        long key = encode((int) gridPos.x + 8, (int) gridPos.y);
+                        HashMap<Long, Biome> thing = specifiedChunkTypes.get(dimension.correspondingType);
+                        if (thing.containsKey(key)) {
+                            biomeThere = thing.get(key);
+                        }
+                    }
+                    if (biomeThere != null) {
                         if (biomeThere.getDifferType() != type.getDifferType()) {
                             //Check that the biome of the chunk next to this chunk has a higher chunk differ type bias, meaning that the biome
                             //would be on top of this biome.
@@ -323,6 +353,9 @@ public class GlobalMethods {
                                     if (!returned.containsKey(key)) {
                                         returned.put(key, biomeThere.getRandomTileTypeFromBiome());
                                     }
+                                }
+                                for (int k = 0; k < chunkWidth / 2; k++) {
+                                    leftIgnore.add(encode(k, i));
                                 }
                             }
                         } else {
@@ -339,9 +372,22 @@ public class GlobalMethods {
                     }
                 }
                 if (i > (chunkHeight / 2f) - 0.5) {
-                    //The tile that the loop is on is on the right of the chunk
+                    //The tile that the loop is on is on the bottom of the chunk
+                    if (bottomIgnore.contains(encode(j, i))) {
+                        continue;
+                    }
+                    Biome biomeThere = null;
                     if (down != null) {
-                        Biome biomeThere = down.getType();
+                        //The biome of the chunk next to this chunk
+                        biomeThere = down.getType();
+                    } else if (specifiedChunkTypes.containsKey(dimension.correspondingType)) {
+                        long key = encode((int) gridPos.x, (int) gridPos.y + 8);
+                        HashMap<Long, Biome> thing = specifiedChunkTypes.get(dimension.correspondingType);
+                        if (thing.containsKey(key)) {
+                            biomeThere = thing.get(key);
+                        }
+                    }
+                    if (biomeThere != null) {
                         if (biomeThere.getDifferType() != type.getDifferType()) {
                             //Check that the biome of the chunk next to this chunk has a higher chunk differ type bias, meaning that the biome
                             //would be on top of this biome.
@@ -353,6 +399,9 @@ public class GlobalMethods {
                                     if (!returned.containsKey(key)) {
                                         returned.put(key, biomeThere.getRandomTileTypeFromBiome());
                                     }
+                                }
+                                for (int k = 0; k < chunkHeight / 2; k++) {
+                                    bottomIgnore.add(encode(j, chunkHeight - 1 - k));
                                 }
                             }
                         } else {
@@ -369,9 +418,22 @@ public class GlobalMethods {
                     }
                 }
                 if (i < (chunkHeight / 2f) - 0.5) {
-                    //The tile that the loop is on is on the left of the chunk
+                    //The tile that the loop is on is on the top of the chunk
+                    if (topIgnore.contains(encode(j, i))) {
+                        continue;
+                    }
+                    Biome biomeThere = null;
                     if (up != null) {
-                        Biome biomeThere = up.getType();
+                        //The biome of the chunk next to this chunk
+                        biomeThere = up.getType();
+                    } else if (specifiedChunkTypes.containsKey(dimension.correspondingType)) {
+                        long key = encode((int) gridPos.x, (int) gridPos.y - 8);
+                        HashMap<Long, Biome> thing = specifiedChunkTypes.get(dimension.correspondingType);
+                        if (thing.containsKey(key)) {
+                            biomeThere = thing.get(key);
+                        }
+                    }
+                    if (biomeThere != null) {
                         if (biomeThere.getDifferType() != type.getDifferType()) {
                             //Check that the biome of the chunk next to this chunk has a higher chunk differ type bias, meaning that the biome
                             //would be on top of this biome.
@@ -383,6 +445,9 @@ public class GlobalMethods {
                                     if (!returned.containsKey(key)) {
                                         returned.put(key, biomeThere.getRandomTileTypeFromBiome());
                                     }
+                                }
+                                for (int k = 0; k < chunkHeight / 2; k++) {
+                                    topIgnore.add(encode(j, k));
                                 }
                             }
                         } else {
