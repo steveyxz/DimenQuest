@@ -1,5 +1,6 @@
 package gui;
 
+import entities.Camera;
 import global.Constants;
 import gui.components.GuiComponent;
 import models.RawModel;
@@ -27,7 +28,7 @@ public class GuiRenderer {
         this.shader = new GuiShader();
     }
 
-    public void render(GuiHandler handler) {
+    public void render(ComponentHandler handler, Camera camera) {
         shader.start();
         List<GuiComponent> guis = handler.getGuis();
         List<GuiComponent> renderedGuis = sort(guis);
@@ -37,6 +38,9 @@ public class GuiRenderer {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         for (GuiComponent comp : renderedGuis) {
             if (comp.getDisplayOn().contains(Constants.gameState) && comp.isShown()) {
+                if (comp.isStationary()) {
+                    shader.changeView(camera);
+                }
                 GuiTexture t = comp.getTexture();
                 GL13.glActiveTexture(GL13.GL_TEXTURE0);
                 GL11.glBindTexture(GL11.GL_TEXTURE_2D, t.getTexture());

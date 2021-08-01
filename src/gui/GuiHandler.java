@@ -1,5 +1,6 @@
 package gui;
 
+import entities.Camera;
 import global.Constants;
 import gui.components.GuiComponent;
 import gui.components.inputs.textInputs.TextInput;
@@ -8,7 +9,7 @@ import text.fontRendering.TextMaster;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiHandler {
+public class GuiHandler implements ComponentHandler {
 
     private final GuiRenderer renderer;
     private final List<GuiComponent> guis = new ArrayList<>();
@@ -21,8 +22,8 @@ public class GuiHandler {
         guis.add(t);
     }
 
-    public void render() {
-        renderer.render(this);
+    public void render(Camera camera) {
+        renderer.render(this, camera);
     }
 
     public void tick() {

@@ -38,4 +38,15 @@ public class TransformationMaths {
         return matrix;
     }
 
+    public static Matrix4f createTransformationMatrix(Vector2f translation, Vector3f rot, Vector2f scale) {
+        Matrix4f matrix = new Matrix4f();
+        matrix.setIdentity();
+        Matrix4f.translate(translation, matrix, matrix);
+        Matrix4f.scale(new Vector3f(scale.x, scale.y, 1f), matrix, matrix);
+        Matrix4f.rotate((float) Math.toRadians(rot.x), new Vector3f(1, 0, 0), matrix, matrix);
+        Matrix4f.rotate((float) Math.toRadians(rot.y), new Vector3f(0, 1, 0), matrix, matrix);
+        Matrix4f.rotate((float) Math.toRadians(rot.z), new Vector3f(0, 0, 1), matrix, matrix);
+        return matrix;
+    }
+
 }

@@ -1,5 +1,7 @@
 package enums;
 
 public enum PlayState {
-    GENERIC
+    GENERIC,
+    PLAY,
+    INVENTORY
 }

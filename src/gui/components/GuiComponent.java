@@ -18,6 +18,8 @@ public abstract class GuiComponent implements Comparable<GuiComponent> {
     //Higher z index would bring the element above lower z index
     private int zIndex;
 
+    private boolean stationary = true;
+
     public GuiComponent(GuiTexture texture, GuiType type, GuiHandler handler, GameState[] display) {
         this(texture, type, handler, display, 0);
     }
@@ -29,6 +31,14 @@ public abstract class GuiComponent implements Comparable<GuiComponent> {
         this.zIndex = zIndex;
         displayOn.addAll(Arrays.asList(display));
         handler.addGui(this);
+    }
+
+    public boolean isStationary() {
+        return stationary;
+    }
+
+    public void setStationary(boolean stationary) {
+        this.stationary = stationary;
     }
 
     public int getZIndex() {

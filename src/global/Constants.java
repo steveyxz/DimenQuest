@@ -40,6 +40,16 @@ public class Constants {
     public static final int guiSpriteSheetTextureWidth = 256;
     public static final int guiSpriteSheetTextureHeight = 256;
     public static final int guiSpriteSheetGap = 0;
+
+    //INVENTORY
+    public static final int inventoryMaxWidth = 9;
+    public static final int inventoryDefaultSize = 9;
+
+    //BACKPACKS
+    public static final int[] backpackSizeProg = {0, 9, 18, 27, 36, 45, 81};
+    public static final String[] backpackNameProg = {"No", "Mini", "Small", "Regular", "Large", "XL", "Jumbo"}; //Combine with ' Backpack' to create names
+
+
     //PLAYER INFO
     public static final int playerWalkDelay = 10;
     public static final int playerWalkRenderChangeDelay = 2;
@@ -61,11 +71,14 @@ public class Constants {
     public static final int playerUpRightPassive = SpriteGlobal.loadTexture("entities", entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, 3, 2);
     public static final String inputChars = "abcdefghijklmnopqrstuvwxyz1234567890()|$/[]{}\\@!?%'#;:<>+^\"=`";
     public static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
+
     //GAME STATES
-    public static PlayState playState = PlayState.GENERIC;
+    public static PlayState playState = PlayState.PLAY;
     public static GameState gameState = GameState.START;
+
     //TILE INFO
     public static float tileWidth = 0.03f;
+
     //TILE TEXTURE MODELS
     public static TexturedModel grassModel;
     public static TexturedModel dirtModel;

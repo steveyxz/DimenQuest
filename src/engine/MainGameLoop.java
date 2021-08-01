@@ -87,19 +87,6 @@ public class MainGameLoop {
             guiHandler.addGui(new StaticImage(GlobalMethods.generateGuiTexture("heart", loader, new Vector2f(0.2f + -0.12f * i, 0.9f), new Vector2f(0.06f, 0.06f)), GuiType.IMAGE, guiHandler, new GameState[]{GameState.PLAY}));
         }
         guiHandler.addGui(StartButton.generateStartButton("start", "startDown", "startHover", guiHandler, new GameState[]{GameState.START}, 5, new Vector2f(0f, -0.7f), new Vector2f(0.5f, 0.2f), loader));
-        guiHandler.addGui(BasicInput.generateBasicInput(
-                new SpriteInfo(0, 0, guiSpriteSheetTextureWidth, guiSpriteSheetTextureHeight, guiSpriteSheetGap, "guis"),
-                new SpriteInfo(1, 0, guiSpriteSheetTextureWidth, guiSpriteSheetTextureHeight, guiSpriteSheetGap, "guis"),
-                new SpriteInfo(2, 0, guiSpriteSheetTextureWidth, guiSpriteSheetTextureHeight, entitySpriteSheetGap, "guis"),
-                new SpriteInfo(3, 0, guiSpriteSheetTextureWidth, guiSpriteSheetTextureHeight, guiSpriteSheetGap, "guis"),
-                guiHandler,
-                new GameState[]{GameState.START},
-                new Vector2f(0, 0.2f),
-                new Vector2f(0.7f, 0.2f),
-                new Vector2f(0, 0.2f),
-                new Vector2f(0.01f, 0.18f),
-                loader, "calibri"
-        ));
 
         currentDimension.addEntity(new Zombie(new SpriteInfo(8, 0, entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, "entities"), new Vector3f(0, 0, -0.2f), 0, 0, 1, new GameState[]{GameState.PLAY}, new Vector2f(0, 0), loader));
 
@@ -127,6 +114,7 @@ public class MainGameLoop {
 
             currentDimension.process();
             ParticleMaster.update();
+
             camera.frame(player);
 
             if (doCreateNewChunk) {
@@ -162,10 +150,9 @@ public class MainGameLoop {
             //Render the entities
 
             currentDimension.render();
-
             ParticleMaster.render(camera);
 
-            guiHandler.render();
+            guiHandler.render(camera);
             TextMaster.render();
 
             if (player.getDisplayOn().contains(Constants.gameState)) {
