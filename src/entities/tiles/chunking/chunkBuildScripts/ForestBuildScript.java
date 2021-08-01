@@ -41,7 +41,7 @@ public class ForestBuildScript extends ChunkBuildScript {
                 grid[i][j] = TileGenerator.getTile(TileType.DIRT, new Vector3f(x, y, 0.2f), (int) (gridPos.x + j), (int) gridPos.y + i, loader);
                 if (rng != 0) {
                     TreeTile tree = new TreeTile(treeModel, new Vector3f(x, y, 0.2f), 1, (int) (gridPos.x + j), (int) gridPos.y + i, loader, new GameState[]{GameState.PLAY});
-                    tree.setZIndex(1);
+                    tree.getModel().setGlobalZIndex(1);
                     grid[i][j].setOnTop(tree);
                 }
             }

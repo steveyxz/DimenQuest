@@ -1,4 +1,4 @@
-package gui.inventory;
+package inventory;
 
 import entities.Camera;
 import entities.entity.moving.Player;
@@ -6,8 +6,8 @@ import global.Constants;
 import gui.ComponentHandler;
 import gui.GuiRenderer;
 import gui.components.GuiComponent;
-import gui.inventory.backpacks.Backpack;
-import gui.inventory.items.Item;
+import inventory.backpacks.Backpack;
+import inventory.items.ItemGui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class PlayerInventory implements ComponentHandler {
         }
     }
 
-    public void addItem(Item item, int slot) {
+    public void addItem(ItemGui item, int slot) {
         if (slot < size) {
             if (quickbarItems.get(slot) != null) {
                 quickbarItems.get(slot).setItem(item);

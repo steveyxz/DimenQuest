@@ -1,4 +1,4 @@
-package gui.inventory.items;
+package inventory.items;
 
 public enum ItemState {
     GENERIC,

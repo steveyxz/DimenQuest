@@ -1,15 +1,15 @@
-package gui.inventory;
+package inventory;
 
 import enums.GameState;
 import enums.GuiType;
 import gui.GuiHandler;
 import gui.GuiTexture;
 import gui.components.GuiComponent;
-import gui.inventory.items.Item;
+import inventory.items.ItemGui;
 
 public class InventorySlot extends GuiComponent {
 
-    public Item item = null;
+    public ItemGui item = null;
 
     public InventorySlot(GuiTexture texture, GuiType type, GuiHandler handler, GameState[] display) {
         super(texture, type, handler, display);
@@ -19,11 +19,11 @@ public class InventorySlot extends GuiComponent {
         super(texture, type, handler, display, zIndex);
     }
 
-    public Item getItem() {
+    public ItemGui getItem() {
         return item;
     }
 
-    public void setItem(Item item) {
+    public void setItem(ItemGui item) {
         this.item = item;
     }
 

@@ -5,6 +5,7 @@ in vec2 position;
 out vec2 textureCoords;
 
 uniform mat4 transformationMatrix;
+uniform mat4 viewMatrix;
 
 void main(void){
 

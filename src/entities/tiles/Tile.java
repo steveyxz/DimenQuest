@@ -30,7 +30,6 @@ public abstract class Tile extends Entity {
         this.gridY = gridY;
         this.tileType = tileType;
         this.loader = loader;
-        this.zIndex = -1;
     }
 
     public static TexturedModel generateModel(Loader loader, String texture) {
@@ -55,7 +54,7 @@ public abstract class Tile extends Entity {
         return new TexturedModel(loader.loadToVAO(vertices, textures, indices), new ModelTexture(loader.loadTexture(texture)));
     }
 
-    public static TexturedModel generateModel(Loader loader, int x, int y, int gap, int width, int height) {
+    public static TexturedModel generateModel(Loader loader, int x, int y) {
         float[] vertices = {
                 0f, 0f, 0f,//v0
                 0f, -tileWidth, 0f,//v1

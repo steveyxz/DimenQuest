@@ -22,7 +22,8 @@ import gui.GuiHandler;
 import gui.GuiRenderer;
 import gui.components.StaticImage;
 import gui.components.buttons.StartButton;
-import gui.components.inputs.textInputs.BasicInput;
+import inventory.items.ItemEntity;
+import inventory.items.ItemType;
 import listeners.KeyboardListener;
 import listeners.MouseListener;
 import org.lwjgl.opengl.Display;
@@ -58,6 +59,7 @@ public class MainGameLoop {
         Loader loader = new Loader();
 
         initTileTextures(loader);
+        initItemTextures(loader);
         initParticleSystems();
 
         TextMaster.init(loader);
@@ -88,8 +90,12 @@ public class MainGameLoop {
         }
         guiHandler.addGui(StartButton.generateStartButton("start", "startDown", "startHover", guiHandler, new GameState[]{GameState.START}, 5, new Vector2f(0f, -0.7f), new Vector2f(0.5f, 0.2f), loader));
 
-        currentDimension.addEntity(new Zombie(new SpriteInfo(8, 0, entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, "entities"), new Vector3f(0, 0, -0.2f), 0, 0, 1, new GameState[]{GameState.PLAY}, new Vector2f(0, 0), loader));
-
+        Zombie testZombie = new Zombie(new SpriteInfo(8, 0, entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, "entities"), new Vector3f(0, 0, -0.2f), 0, 0, 1, new GameState[]{GameState.PLAY}, new Vector2f(0, 0), loader);
+        testZombie.getModel().setGlobalZIndex(3);
+        currentDimension.addEntity(testZombie);
+        ItemEntity testItem = new ItemEntity(oakWoodLogModel, new Vector3f(0, 0, -0.2f), 20, 0, 0, new GameState[] {GameState.PLAY}, ItemType.OAK_WOOD_LOG);
+        testItem.getModel().setGlobalZIndex(2);
+        currentDimension.addEntity(testItem);
 
         //******************************* START THE GAME LOOP ******************************
 
@@ -185,10 +191,14 @@ public class MainGameLoop {
     }
 
     private static void initTileTextures(Loader loader) {
-        grassModel = DecorTile.generateModel(loader, 8, 3, tileSpriteSheetGap, tileSpriteSheetWidth, tileSpriteSheetHeight);
-        dirtModel = DecorTile.generateModel(loader, 5, 3, tileSpriteSheetGap, tileSpriteSheetWidth, tileSpriteSheetHeight);
-        treeModel = DecorTile.generateModel(loader, 3, 4, tileSpriteSheetGap, tileSpriteSheetWidth, tileSpriteSheetHeight);
-        sandModel = DecorTile.generateModel(loader, 0, 0, tileSpriteSheetGap, tileSpriteSheetWidth, tileSpriteSheetHeight);
+        grassModel = DecorTile.generateModel(loader, 8, 3);
+        dirtModel = DecorTile.generateModel(loader, 5, 3);
+        treeModel = DecorTile.generateModel(loader, 3, 4);
+        sandModel = DecorTile.generateModel(loader, 0, 0);
+    }
+
+    private static void initItemTextures(Loader loader) {
+        oakWoodLogModel = ItemEntity.generateModel(loader, 0, 0);
     }
 
     private static void initDimensions(Camera camera, TextureShader shader, MasterRenderer renderer) {

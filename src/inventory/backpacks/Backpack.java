@@ -1,6 +1,6 @@
-package gui.inventory.backpacks;
+package inventory.backpacks;
 
-import gui.inventory.InventorySlot;
+import inventory.InventorySlot;
 
 import java.util.ArrayList;
 

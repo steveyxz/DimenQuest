@@ -5,5 +5,6 @@ public enum EntityType {
     GENERIC_RECTANGLE,
     TILE,
     PLAYER,
-    ZOMBIE
+    ZOMBIE,
+    ITEM
 }

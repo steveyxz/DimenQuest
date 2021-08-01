@@ -22,7 +22,7 @@ public class Camera {
     private float yaw; //Left right
     private float roll; //Rotation (in degrees)
 
-    private float speed = 0.01f;
+    private float speed = 0.007f;
     private int timer = 0;
     private Integer keyChangeTimer = null;
     private String lastKeyComb = "";

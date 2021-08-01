@@ -18,7 +18,6 @@ public abstract class Entity {
     protected float rotX, rotY, rotZ;
     protected float scale;
     protected EntityType entityType;
-    protected int zIndex = 0;
 
     public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, EntityType entityType, GameState[] display) {
         this.model = model;
@@ -42,14 +41,6 @@ public abstract class Entity {
         this.entityType = entityType;
         this.gridPos = gridPos;
         displayOn.addAll(Arrays.asList(display));
-    }
-
-    public int getZIndex() {
-        return zIndex;
-    }
-
-    public void setZIndex(int zIndex) {
-        this.zIndex = zIndex;
     }
 
     public ArrayList<GameState> getDisplayOn() {

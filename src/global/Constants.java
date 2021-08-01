@@ -4,6 +4,7 @@ import entities.dimensions.types.StarterWorld;
 import enums.GameState;
 import enums.PlayState;
 import models.TexturedModel;
+import org.w3c.dom.Text;
 import renderEngine.spriteHandler.SpriteGlobal;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Constants {
      * !!! Turning this on will cause minor chunk flashes during chunk generation. Use at your own risk. !!!
      */
     public static final boolean useNewThreadForChunks = false;
+
     //SPRITE SHEET INFO
     public static final int particleSpriteSheetHeight = 1280;
     public static final int particleSpriteSheetWidth = 1280;
@@ -25,8 +27,6 @@ public class Constants {
     public static final int particleSpriteSheetGap = 0;
     public static final int tileSpriteSheetHeight = 2172;
     public static final int tileSpriteSheetWidth = 2172;
-
-    //CHUNK INFO
     public static final int tileSpriteSheetTextureWidth = 64;
     public static final int tileSpriteSheetTextureHeight = 64;
     public static final int tileSpriteSheetGap = 4;
@@ -40,6 +40,11 @@ public class Constants {
     public static final int guiSpriteSheetTextureWidth = 256;
     public static final int guiSpriteSheetTextureHeight = 256;
     public static final int guiSpriteSheetGap = 0;
+    public static final int itemsSpriteSheetHeight = 1280;
+    public static final int itemsSpriteSheetWidth = 1280;
+    public static final int itemsSpriteSheetTextureWidth = 64;
+    public static final int itemsSpriteSheetTextureHeight = 64;
+    public static final int itemsSpriteSheetGap = 0;
 
     //INVENTORY
     public static final int inventoryMaxWidth = 9;
@@ -69,6 +74,8 @@ public class Constants {
     public static final int playerDownRightPassive = SpriteGlobal.loadTexture("entities", entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, 1, 2);
     public static final int playerUpLeftPassive = SpriteGlobal.loadTexture("entities", entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, 5, 2);
     public static final int playerUpRightPassive = SpriteGlobal.loadTexture("entities", entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, 3, 2);
+
+    //MISC
     public static final String inputChars = "abcdefghijklmnopqrstuvwxyz1234567890()|$/[]{}\\@!?%'#;:<>+^\"=`";
     public static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
@@ -77,22 +84,25 @@ public class Constants {
     public static GameState gameState = GameState.START;
 
     //TILE INFO
-    public static float tileWidth = 0.03f;
+    public static float tileWidth = 0.025f;
 
     //TILE TEXTURE MODELS
     public static TexturedModel grassModel;
     public static TexturedModel dirtModel;
     public static TexturedModel treeModel;
     public static TexturedModel sandModel;
-    public static int chunkSpreadDiffer = 10;
 
+    //CHUNK INFO
+    public static int chunkSpreadDiffer = 10;
+    public static int chunkWidth = 8;
+    public static int chunkHeight = 8;
+
+    //ITEM TEXTURE MODELS
+    public static TexturedModel oakWoodLogModel;
 
     //Dimensions
-    public static int chunkWidth = 8;
-
-    //Misc
-    public static int chunkHeight = 8;
     public static StarterWorld starterDimension;
+
     public static float[] rectVertices = {
             0f, 0f, 0f,//v0
             0f, -1, 0f,//v1
