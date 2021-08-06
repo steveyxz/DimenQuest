@@ -5,6 +5,7 @@ import enums.GameState;
 import enums.PlayState;
 import models.TexturedModel;
 import org.w3c.dom.Text;
+import renderEngine.DisplayManager;
 import renderEngine.spriteHandler.SpriteGlobal;
 
 import java.util.ArrayList;
@@ -46,10 +47,6 @@ public class Constants {
     public static final int itemsSpriteSheetTextureHeight = 64;
     public static final int itemsSpriteSheetGap = 0;
 
-    //INVENTORY
-    public static final int inventoryMaxWidth = 9;
-    public static final int inventoryDefaultSize = 9;
-
     //BACKPACKS
     public static final int[] backpackSizeProg = {0, 9, 18, 27, 36, 45, 81};
     public static final String[] backpackNameProg = {"No", "Mini", "Small", "Regular", "Large", "XL", "Jumbo"}; //Combine with ' Backpack' to create names
@@ -78,6 +75,15 @@ public class Constants {
     //MISC
     public static final String inputChars = "abcdefghijklmnopqrstuvwxyz1234567890()|$/[]{}\\@!?%'#;:<>+^\"=`";
     public static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    public static float widthToHeightRatio = DisplayManager.WIDTH / (DisplayManager.HEIGHT * 1f);
+
+    //INVENTORY
+    public static final float inventorySlotWidth = 0.1f;
+    public static final float inventorySlotHeight = 0.1f * widthToHeightRatio;
+    public static final int inventoryMaxWidth = 9;
+    public static final float inventoryXOffset = 0.05f;
+    public static final float inventoryYOffset = 0.05f;
+    public static final int quickbarSize = 9;
 
     //GAME STATES
     public static PlayState playState = PlayState.PLAY;

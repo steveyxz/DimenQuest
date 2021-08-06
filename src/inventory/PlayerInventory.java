@@ -16,28 +16,37 @@ public class PlayerInventory implements ComponentHandler {
 
     private Player player;
     private ArrayList<InventorySlot> quickbarItems = new ArrayList<>();
-    private Backpack backpack = new Backpack();
-    private int size;
+    private Backpack backpack;
+    private int quickBarSize;
     private GuiRenderer renderer;
 
     public PlayerInventory(Player player, GuiRenderer renderer) {
-        this(player, Constants.inventoryDefaultSize, renderer);
+        this(player, Constants.quickbarSize, renderer);
     }
 
-    public PlayerInventory(Player player, int size, GuiRenderer renderer) {
+    public PlayerInventory(Player player, int quickBarSize, GuiRenderer renderer) {
         this.player = player;
         this.renderer = renderer;
-        for (int i = 0; i < size; i++) {
+        this.backpack = new Backpack(player);
+        for (int i = 0; i < quickBarSize; i++) {
             quickbarItems.add(null);
         }
     }
 
     public int getSize() {
-        return size;
+        return quickBarSize + backpack.size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public int getQuickBarSize() {
+        return quickBarSize;
+    }
+
+    public int getBackpackSize() {
+        return backpack.size;
+    }
+
+    public void setQuickBarSize(int quickBarSize) {
+        this.quickBarSize = quickBarSize;
     }
 
     public Player getPlayer() {
@@ -48,14 +57,14 @@ public class PlayerInventory implements ComponentHandler {
         return quickbarItems;
     }
 
-    public void addItem(InventorySlot item, int slot) {
-        if (slot < size) {
+    public void setItem(InventorySlot item, int slot) {
+        if (slot < quickBarSize) {
             quickbarItems.set(slot, item);
         }
     }
 
-    public void addItem(ItemGui item, int slot) {
-        if (slot < size) {
+    public void setItem(ItemGui item, int slot) {
+        if (slot < quickBarSize) {
             if (quickbarItems.get(slot) != null) {
                 quickbarItems.get(slot).setItem(item);
             }
@@ -63,7 +72,18 @@ public class PlayerInventory implements ComponentHandler {
     }
 
     public void updateItems() {
+        backpack.reloadItems();
+        for (InventorySlot slot : quickbarItems) {
+            
+        }
+    }
 
+    public void addBackpackItem(InventorySlot item, int slot) {
+        backpack.setItem(item, slot);
+    }
+
+    public void addBackpackItem(ItemGui item, int slot) {
+        backpack.setItem(item, slot);
     }
 
     public InventorySlot getItem(int slot) {

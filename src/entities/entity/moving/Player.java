@@ -7,6 +7,8 @@ import entities.entity.Entity;
 import enums.EntityType;
 import enums.GameState;
 import global.Constants;
+import gui.GuiRenderer;
+import inventory.PlayerInventory;
 import models.TexturedModel;
 import org.lwjgl.util.vector.Vector3f;
 import renderEngine.Loader;
@@ -24,13 +26,15 @@ public class Player extends Entity {
     private Dimension dimension;
     private final int timer = 0;
     private final ListLooper<Integer> walkingLoop;
+    private final PlayerInventory inventory;
 
-    public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, Camera camera, Loader loader, GameState[] display, ArrayList<Integer> playerWalking, Dimension dimension) {
+    public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, Camera camera, Loader loader, GameState[] display, ArrayList<Integer> playerWalking, Dimension dimension, GuiRenderer guiRenderer) {
         super(model, position, rotX, rotY, rotZ, 1, EntityType.PLAYER, display);
         this.walking = playerWalking;
         this.camera = camera;
         this.dimension = dimension;
         this.walkingLoop = new ListLooper<>(walking);
+        this.inventory = new PlayerInventory(this, Constants.quickbarSize, guiRenderer);
     }
 
     public static TexturedModel generatePlayerModel(Loader loader) {
@@ -55,6 +59,10 @@ public class Player extends Entity {
         };
 
         return new TexturedModel(loader.loadToVAO(vertices, textures, indices), new ModelTexture(SpriteGlobal.loadTexture("entities", Constants.entitySpriteSheetTextureWidth, Constants.entitySpriteSheetTextureHeight, Constants.entitySpriteSheetGap, 0, 0)));
+    }
+
+    public void throwItem(int slot) {
+
     }
 
     public Dimension getDimension() {

@@ -21,9 +21,9 @@ public class GuiShader extends ShaderProgram {
         super.loadMatrix(location_transformationMatrix, matrix);
     }
 
-    public void changeView(Camera c) {
-        Matrix4f matrix = TransformationMaths.createViewMatrix(c);
-        super.loadMatrix(location_viewMatrix, matrix);
+
+    public void loadView(Camera camera) {
+        super.loadMatrix(location_viewMatrix, TransformationMaths.createViewMatrix(camera));
     }
 
     @Override
