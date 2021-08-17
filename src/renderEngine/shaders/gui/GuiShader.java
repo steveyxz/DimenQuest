@@ -11,7 +11,6 @@ public class GuiShader extends ShaderProgram {
     private static final String FRAGMENT_FILE = "/guiFragmentShader.shader";
 
     private int location_transformationMatrix;
-    private int location_viewMatrix;
 
     public GuiShader() {
         super(VERTEX_FILE, FRAGMENT_FILE);
@@ -22,14 +21,9 @@ public class GuiShader extends ShaderProgram {
     }
 
 
-    public void loadView(Camera camera) {
-        super.loadMatrix(location_viewMatrix, TransformationMaths.createViewMatrix(camera));
-    }
-
     @Override
     protected void getAllUniformLocations() {
         location_transformationMatrix = super.getUniformVariable("transformationMatrix");
-        location_viewMatrix = super.getUniformVariable("viewMatrix");
     }
 
     @Override

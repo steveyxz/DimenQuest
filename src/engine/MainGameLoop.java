@@ -85,10 +85,12 @@ public class MainGameLoop {
         Player player = new Player(Player.generatePlayerModel(loader), new Vector3f(0, 0, -0.2f), 0, 0f, 0f, camera, loader, new GameState[]{GameState.PLAY}, GlobalMethods.getAnimationTextures("entities", entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, encode(0, 1), encode(0, 2)), currentDimension, guiRenderer);
         ChunkLoaderThread loaderThread = new ChunkLoaderThread(loader, currentDimension, chunkGenerator, player);
 
-        for (int i = 0; i < 10; i++) {
-            guiHandler.addGui(new StaticImage(GlobalMethods.generateGuiTexture("heart", loader, new Vector2f(0.2f + -0.12f * i, 0.9f), new Vector2f(0.06f, 0.06f)), GuiType.IMAGE, guiHandler, new GameState[]{GameState.PLAY}));
-        }
-        guiHandler.addGui(StartButton.generateStartButton("start", "startDown", "startHover", guiHandler, new GameState[]{GameState.START}, 5, new Vector2f(0f, 0f), new Vector2f(0.5f, 0.2f), loader));
+        StartButton start = StartButton.generateStartButton("guis", guiSpriteSheetGap, guiSpriteSheetTextureWidth, guiSpriteSheetTextureHeight, 0, 1, 2, 1, 1, 1, guiHandler, new GameState[]{GameState.START}, 5, new Vector2f(0f, 0f), new Vector2f(0.5f, 0.2f), loader);
+        start.getTexture().setPos(new Vector2f(0f, 0f));
+        start.getButtonHover().setPos(new Vector2f(0f, 0f));
+        start.getButtonDown().setPos(new Vector2f(0f, 0f));
+        start.getButtonPassive().setPos(new Vector2f(0f, 0f));
+        guiHandler.addGui(start);
 
         Zombie testZombie = new Zombie(new SpriteInfo(8, 0, entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, "entities"), new Vector3f(0, 0, -0.2f), 0, 0, 1, new GameState[]{GameState.PLAY}, new Vector2f(0, 0), loader);
         testZombie.getModel().setGlobalZIndex(3);
@@ -164,7 +166,7 @@ public class MainGameLoop {
             if (player.getDisplayOn().contains(Constants.gameState)) {
                 renderer.getPlayerShader().start();
                 renderer.getPlayerShader().changeView(playerCamera);
-                renderer.getRenderer().renderPlayer(player, renderer.getPlayerShader());
+                renderer.getRenderer().renderPlayer(player, renderer.getPlayerShader(), camera);
                 renderer.getPlayerShader().stop();
             }
 

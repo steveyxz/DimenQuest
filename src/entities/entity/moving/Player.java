@@ -37,6 +37,10 @@ public class Player extends Entity {
         this.inventory = new PlayerInventory(this, Constants.quickbarSize, guiRenderer);
     }
 
+    public PlayerInventory getInventory() {
+        return inventory;
+    }
+
     public static TexturedModel generatePlayerModel(Loader loader) {
         float offset = 0;
         float[] vertices = {
@@ -82,7 +86,7 @@ public class Player extends Entity {
 
     @Override
     public void tick() {
-
+        inventory.tick();
     }
 
     public void nextLoop() {

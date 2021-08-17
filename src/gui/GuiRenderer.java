@@ -34,13 +34,13 @@ public class GuiRenderer {
 
     public void render(ComponentHandler handler, Camera camera) {
         shader.start();
-        shader.loadView(camera);
         List<GuiComponent> guis = handler.getGuis();
         List<GuiComponent> renderedGuis = sort(guis);
         GL30.glBindVertexArray(quad.getVaoID());
         GL20.glEnableVertexAttribArray(0);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
         for (GuiComponent comp : renderedGuis) {
             if (comp.getDisplayOn().contains(Constants.gameState) && comp.isShown()) {
                 GuiTexture t = comp.getTexture();

@@ -22,7 +22,7 @@ public class Camera {
     private float yaw; //Left right
     private float roll; //Rotation (in degrees)
 
-    private float speed = 0.007f;
+    private float speed = 0.003f;
     private int timer = 0;
     private Integer keyChangeTimer = null;
     private String lastKeyComb = "";
@@ -147,7 +147,7 @@ public class Camera {
                 player.getDimension().setPlayerPos((new Vector2f(player.getDimension().getPlayerPos().x + speed / Constants.tileWidth, player.getDimension().getPlayerPos().y)));
 
                 walkingSystem.setDirection(new Vector3f(-speed, y, 0), 1f);
-                ParticleSystems.walkingParticles.generateParticles(new Vector3f(player.getPosition().x + xOffset + player.getDimension().getPlayerPos().x * Constants.tileWidth, player.getPosition().y + yOffset + -player.getDimension().getPlayerPos().y * Constants.tileWidth, -0.2f));
+                ParticleSystems.walkingParticles.generateParticles(new Vector3f(player.getPosition().x + xOffset + (player.getDimension().getPlayerPos().x+1) * Constants.tileWidth, player.getPosition().y + yOffset + (-player.getDimension().getPlayerPos().y-1) * Constants.tileWidth, -0.2f));
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
                 GlobalValues.isMoving = true;
@@ -155,7 +155,7 @@ public class Camera {
                 player.getDimension().setPlayerPos((new Vector2f(player.getDimension().getPlayerPos().x - speed / Constants.tileWidth, player.getDimension().getPlayerPos().y)));
 
                 walkingSystem.setDirection(new Vector3f(speed, y, 0), 1f);
-                ParticleSystems.walkingParticles.generateParticles(new Vector3f(player.getPosition().x + xOffset + player.getDimension().getPlayerPos().x * Constants.tileWidth, player.getPosition().y + yOffset + -player.getDimension().getPlayerPos().y * Constants.tileWidth, -0.2f));
+                ParticleSystems.walkingParticles.generateParticles(new Vector3f(player.getPosition().x + xOffset + (player.getDimension().getPlayerPos().x+1) * Constants.tileWidth, player.getPosition().y + yOffset + (-player.getDimension().getPlayerPos().y-1) * Constants.tileWidth, -0.2f));
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
                 GlobalValues.isMoving = true;
@@ -163,7 +163,7 @@ public class Camera {
                 player.getDimension().setPlayerPos((new Vector2f(player.getDimension().getPlayerPos().x, player.getDimension().getPlayerPos().y - speed / Constants.tileWidth)));
 
                 walkingSystem.setDirection(new Vector3f(x, -speed, 0), 1f);
-                ParticleSystems.walkingParticles.generateParticles(new Vector3f(player.getPosition().x + xOffset + player.getDimension().getPlayerPos().x * Constants.tileWidth, player.getPosition().y + yOffset + -player.getDimension().getPlayerPos().y * Constants.tileWidth, -0.2f));
+                ParticleSystems.walkingParticles.generateParticles(new Vector3f(player.getPosition().x + xOffset + (player.getDimension().getPlayerPos().x+1) * Constants.tileWidth, player.getPosition().y + yOffset + (-player.getDimension().getPlayerPos().y-1) * Constants.tileWidth, -0.2f));
 
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
@@ -172,7 +172,7 @@ public class Camera {
                 player.getDimension().setPlayerPos((new Vector2f(player.getDimension().getPlayerPos().x, player.getDimension().getPlayerPos().y + speed / Constants.tileWidth)));
 
                 walkingSystem.setDirection(new Vector3f(x, speed, 0), 1f);
-                ParticleSystems.walkingParticles.generateParticles(new Vector3f(player.getPosition().x + xOffset + player.getDimension().getPlayerPos().x * Constants.tileWidth, player.getDimension().getPlayerPos().y + yOffset + -player.getDimension().getPlayerPos().y * Constants.tileWidth, -0.2f));
+                ParticleSystems.walkingParticles.generateParticles(new Vector3f(player.getPosition().x + xOffset + (player.getDimension().getPlayerPos().x+1) * Constants.tileWidth, player.getDimension().getPlayerPos().y + yOffset + (-player.getDimension().getPlayerPos().y-1) * Constants.tileWidth, -0.2f));
 
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {

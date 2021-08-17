@@ -11,8 +11,8 @@ import java.util.List;
 
 public class GuiHandler implements ComponentHandler {
 
-    private final GuiRenderer renderer;
-    private final List<GuiComponent> guis = new ArrayList<>();
+    protected final GuiRenderer renderer;
+    protected final List<GuiComponent> guis = new ArrayList<>();
 
     public GuiHandler(GuiRenderer renderer) {
         this.renderer = renderer;

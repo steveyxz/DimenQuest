@@ -77,25 +77,28 @@ public abstract class Button extends GuiComponent {
 
     @Override
     public void tick() {
-        if (timer < 0) {
-            Vector2f pos = getTexture().getPos();
-            Vector2f scale = getTexture().getScale();
-            if (MouseListener.isMouseClickWithin((int) ((pos.x - (scale.x) + 1) / 2 * Display.getWidth()), (int) ((pos.y - (scale.y) + 1) / 2 * Display.getHeight()), (int) (scale.x * Display.getWidth()), (int) (scale.y * Display.getHeight()))) {
-                setTexture(buttonDown);
-                setState(ButtonState.CLICK_DOWN);
-            } else if (MouseListener.checkBounds(Mouse.getX(), Mouse.getY(), (int) ((pos.x - (scale.x) + 1) / 2 * Display.getWidth()), (int) ((pos.y - (scale.y) + 1) / 2 * Display.getHeight()), (int) (scale.x * Display.getWidth()), (int) (scale.y * Display.getHeight()))) {
-                setTexture(buttonHover);
-                if (getState() == ButtonState.CLICK_DOWN) {
-                    click();
+        if (this.isShown()) {
+            if (timer < 0) {
+                Vector2f pos = getTexture().getPos();
+                Vector2f scale = getTexture().getScale();
+                if (MouseListener.isMouseClickWithin((int) ((pos.x - (scale.x) + 1) / 2 * Display.getWidth()), (int) ((pos.y - (scale.y) + 1) / 2 * Display.getHeight()), (int) (scale.x * Display.getWidth()), (int) (scale.y * Display.getHeight()))) {
+                    setTexture(buttonDown);
+                    setState(ButtonState.CLICK_DOWN);
+                } else if (MouseListener.checkBounds(Mouse.getX(), Mouse.getY(), (int) ((pos.x - (scale.x) + 1) / 2 * Display.getWidth()), (int) ((pos.y - (scale.y) + 1) / 2 * Display.getHeight()), (int) (scale.x * Display.getWidth()), (int) (scale.y * Display.getHeight()))) {
+                    hover();
+                    setTexture(buttonHover);
+                    if (getState() == ButtonState.CLICK_DOWN) {
+                        click();
+                        setTexture(buttonPassive);
+                        setState(ButtonState.PASSIVE);
+                    }
+                } else {
                     setTexture(buttonPassive);
-                    setState(ButtonState.PASSIVE);
                 }
-            } else {
-                setTexture(buttonPassive);
+                timer = delay;
             }
-            timer = delay;
+            timer--;
         }
-        timer--;
     }
 
     public abstract void click();

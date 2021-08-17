@@ -14,6 +14,10 @@ public class GuiTexture {
         this.scale = scale;
     }
 
+    public GuiTexture(GuiTexture original) {
+        this(original.getTexture(), original.getPos(), original.getScale());
+    }
+
     public int getTexture() {
         return texture;
     }

@@ -3,9 +3,12 @@ package global;
 import entities.dimensions.types.StarterWorld;
 import enums.GameState;
 import enums.PlayState;
+import gui.GuiTexture;
 import models.TexturedModel;
+import org.lwjgl.util.vector.Vector2f;
 import org.w3c.dom.Text;
 import renderEngine.DisplayManager;
+import renderEngine.Loader;
 import renderEngine.spriteHandler.SpriteGlobal;
 
 import java.util.ArrayList;
@@ -19,6 +22,12 @@ public class Constants {
      * !!! Turning this on will cause minor chunk flashes during chunk generation. Use at your own risk. !!!
      */
     public static final boolean useNewThreadForChunks = false;
+
+    //MISC
+    public static final Loader globalLoader = new Loader();
+    public static final String inputChars = "abcdefghijklmnopqrstuvwxyz1234567890()|$/[]{}\\@!?%'#;:<>+^\"=`";
+    public static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    public static float widthToHeightRatio = DisplayManager.WIDTH / (DisplayManager.HEIGHT * 1f);
 
     //SPRITE SHEET INFO
     public static final int particleSpriteSheetHeight = 1280;
@@ -47,8 +56,20 @@ public class Constants {
     public static final int itemsSpriteSheetTextureHeight = 64;
     public static final int itemsSpriteSheetGap = 0;
 
+    //INVENTORY
+    public static final float inventorySlotWidth = 0.07f;
+    public static final float inventorySlotHeight = 0.07f * widthToHeightRatio;
+    public static final int inventoryMaxWidth = 9;
+    public static final float inventoryXOffset = 0.1f;
+    public static final float inventoryYOffset = 0.1f;
+    public static final float quickBarBottomOffset = 0.1f;
+    public static final float quickBarXOffset = 0.14f;
+    public static final GuiTexture inventoryPassiveTexture = new GuiTexture(SpriteGlobal.loadTexture("guis", guiSpriteSheetTextureWidth, guiSpriteSheetTextureHeight, guiSpriteSheetGap, 3, 1), new Vector2f(0, 0), new Vector2f(inventorySlotWidth, inventorySlotHeight));
+    public static final GuiTexture inventoryActiveTexture = new GuiTexture(SpriteGlobal.loadTexture("guis", guiSpriteSheetTextureWidth, guiSpriteSheetTextureHeight, guiSpriteSheetGap, 4, 1), new Vector2f(0, 0), new Vector2f(inventorySlotWidth, inventorySlotHeight));
+    public static final int quickbarSize = 9;
+
     //BACKPACKS
-    public static final int[] backpackSizeProg = {0, 9, 18, 27, 36, 45, 81};
+    public static final int[] backpackSizeProg = {0, 9, 18, 27, 36, 45, 72};
     public static final String[] backpackNameProg = {"No", "Mini", "Small", "Regular", "Large", "XL", "Jumbo"}; //Combine with ' Backpack' to create names
 
 
@@ -72,19 +93,6 @@ public class Constants {
     public static final int playerUpLeftPassive = SpriteGlobal.loadTexture("entities", entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, 5, 2);
     public static final int playerUpRightPassive = SpriteGlobal.loadTexture("entities", entitySpriteSheetTextureWidth, entitySpriteSheetTextureHeight, entitySpriteSheetGap, 3, 2);
 
-    //MISC
-    public static final String inputChars = "abcdefghijklmnopqrstuvwxyz1234567890()|$/[]{}\\@!?%'#;:<>+^\"=`";
-    public static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
-    public static float widthToHeightRatio = DisplayManager.WIDTH / (DisplayManager.HEIGHT * 1f);
-
-    //INVENTORY
-    public static final float inventorySlotWidth = 0.1f;
-    public static final float inventorySlotHeight = 0.1f * widthToHeightRatio;
-    public static final int inventoryMaxWidth = 9;
-    public static final float inventoryXOffset = 0.05f;
-    public static final float inventoryYOffset = 0.05f;
-    public static final int quickbarSize = 9;
-
     //GAME STATES
     public static PlayState playState = PlayState.PLAY;
     public static GameState gameState = GameState.START;
@@ -106,7 +114,7 @@ public class Constants {
     //ITEM TEXTURE MODELS
     public static TexturedModel oakWoodLogModel;
 
-    //Dimensions
+    //DIMENSIONS
     public static StarterWorld starterDimension;
 
     public static float[] rectVertices = {

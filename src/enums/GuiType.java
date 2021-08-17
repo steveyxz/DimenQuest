@@ -4,5 +4,7 @@ public enum GuiType {
     BUTTON,
     IMAGE,
     TEXT_INPUT,
-    POINTER
+    POINTER,
+    INVENTORY_SLOT,
+    INVENTORY_ITEM
 }

@@ -1,5 +1,6 @@
 package renderEngine;
 
+import entities.Camera;
 import entities.entity.Entity;
 import entities.entity.moving.Player;
 import entities.tiles.Tile;
@@ -102,7 +103,7 @@ public class Renderer {
      *
      * @param entity The model to render
      */
-    public void renderPlayer(Player entity, PlayerShader shader) {
+    public void renderPlayer(Player entity, PlayerShader shader, Camera camera) {
         TexturedModel model = entity.getModel();
         RawModel rawModel = model.getRawModel();
         GL30.glBindVertexArray(rawModel.getVaoID());
@@ -119,6 +120,7 @@ public class Renderer {
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
+        entity.getInventory().render(camera);
     }
 
     private void createProjectionMatrix() {

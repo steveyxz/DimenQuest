@@ -4,6 +4,7 @@ import enums.GameState;
 import enums.GuiType;
 import gui.GuiHandler;
 import gui.GuiTexture;
+import inventory.InventorySlot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +31,9 @@ public abstract class GuiComponent implements Comparable<GuiComponent> {
         this.handler = handler;
         this.zIndex = zIndex;
         displayOn.addAll(Arrays.asList(display));
-        handler.addGui(this);
+        if (!(this instanceof InventorySlot)) {
+            handler.addGui(this);
+        }
     }
 
     public boolean isStationary() {
